@@ -1,0 +1,112 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+#game-info {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#difficulty {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+#message {
+    height: 20px;
+    margin: 15px 0;
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+#sudoku-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#sudoku-grid {
+    border: 3px solid #34495e;
+    border-spacing: 0;
+    margin-bottom: 20px;
+}
+
+.cell {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #bdc3c7;
+    background-color: white;
+    transition: background-color 0.2s;
+}
+
+.cell:focus {
+    outline: none;
+    background-color: #eaf2f8;
+}
+
+.fixed {
+    color: #2c3e50;
+    background-color: #ecf0f1;
+}
+
+.error {
+    color: #e74c3c;
+}
+
+.border-right-thick {
+    border-right: 3px solid #34495e;
+}
+
+.border-bottom-thick {
+    border-bottom: 3px solid #34495e;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+#controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+@media (max-width: 500px) {
+    .cell {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+}
