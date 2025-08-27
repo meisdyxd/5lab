@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     let selectedCell = null;
-    let prevCell = null;
     let board = Array(9).fill().map(() => Array(9).fill(0));
     let solution = Array(9).fill().map(() => Array(9).fill(0));
     let fixedCells = Array(9).fill().map(() => Array(9).fill(false));
@@ -137,11 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function navigateGrid(direction) {
-        console.log('check before move');
-
         if (!selectedCell) return;
-
-        console.log('move');
 
         let row = parseInt(selectedCell.dataset.row);
         let col = parseInt(selectedCell.dataset.col);
