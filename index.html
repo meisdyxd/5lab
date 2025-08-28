@@ -10,12 +10,6 @@
 <body>
     <h1>Судоку</h1>
     
-    <div id="controls">
-        <button id="solve">Решить</button>
-        <button id="hint">Подсказка</button>
-        <button id="clear">Очистить</button>
-    </div>
-
     <div id="game-info">
         <select id="difficulty">
             <option value="easy">Легкий</option>
@@ -24,11 +18,22 @@
         </select>
         <button id="new-game">Новая игра</button>
     </div>
+	
+	<div id="healthbar">
+	
+	</div>
     
     <div id="message"></div>
     
     <div id="sudoku-container">
         <table id="sudoku-grid"></table>
+    </div>
+	
+	
+	<div id="controls">
+        <button id="solve">Решить</button>
+        <button id="hint">Подсказка</button>
+        <button id="clear">Очистить</button>
     </div>
 </body>
 </html>

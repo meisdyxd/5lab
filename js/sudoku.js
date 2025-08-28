@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let board = Array(9).fill().map(() => Array(9).fill(0));
     let solution = Array(9).fill().map(() => Array(9).fill(0));
     let fixedCells = Array(9).fill().map(() => Array(9).fill(false));
+	let currentHP = 5;
+	let maxHP = 5;
 
     const gridElement = document.getElementById('sudoku-grid');
     const messageElement = document.getElementById('message');
@@ -12,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const clearButton = document.getElementById('clear');
     const difficultySelect = document.getElementById('difficulty');
     const bodyElement = document.getElementsByTagName('body')[0];
+	const healthBar = document.getElementById('healthbar');
     
     initGame();
     
@@ -19,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         createGrid();
         setupEventListeners();
         generateNewGame();
+		renderHP();
     }
     
     function createGrid() {
@@ -51,8 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function setupEventListeners() {
         bodyElement.addEventListener('keydown', (e) => {
-            if (e.key == 'i')
-                console.log(selectedCell === null ? 'empty' : selectedCell);
+            if (e.key == 'i'){
+				console.log(selectedCell === null ? 'empty' : selectedCell);
+				console.log('board', board);
+				console.log('solution', solution);
+				console.log('fixed cells', fixedCells);
+			}			
         });
 
         gridElement.addEventListener('keydown', handleKeyDown);
@@ -115,10 +123,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+		clearMessage();
+		
         if (e.key >= '1' && e.key <= '9') {
             selectedCell.value = e.key;
             board[row][col] = parseInt(e.key);
             validateCell(row, col);
+			checkLoose();
         } 
         else if (e.key === 'Backspace' || e.key === 'Delete' || e.key === '0') {
             selectedCell.value = '';
@@ -135,6 +146,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+	function checkLoose(){
+		if(currentHP == 0)
+			showMessage('Вы проиграли. Для продолжения вам нужно начать новую игру', 'error');
+		renderHP();
+	}
+	
+	function renderHP(){
+		healthBar.innerHTML = '';
+		
+		for(i = 0; i < currentHP; i++){
+			const hp = document.createElement('img');
+			hp.classList.add('hp-full');
+			hp.dataset.seq = i;
+			healthBar.appendChild(hp);
+		}
+	}
+	
     function navigateGrid(direction) {
         if (!selectedCell) return;
 
@@ -173,12 +201,24 @@ document.addEventListener('DOMContentLoaded', function() {
         let cellsToRemove;
         
         switch (difficulty) {
-            case 'easy': cellsToRemove = 35; break;
-            case 'medium': cellsToRemove = 45; break;
-            case 'hard': cellsToRemove = 55; break;
+            case 'easy': 
+				cellsToRemove = 35; 
+				currentHP = 5; 
+				maxHP = 5;
+				break;
+            case 'medium': 
+				cellsToRemove = 45; 
+				currentHP = 3;
+				maxHP = 3;
+				break;
+            case 'hard': 
+				cellsToRemove = 55;
+				currentHP = 1;
+				maxHP = 1;
+				break;
             default: cellsToRemove = 40;
         }
-        
+        renderHP();
         createPlayableBoard(cellsToRemove);
         updateGrid();
     }
@@ -356,9 +396,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function validateCell(row, col) {
         const cell = document.querySelector(`input[data-row="${row}"][data-col="${col}"]`);
-        
         if (board[row][col] !== solution[row][col]) {
             cell.classList.add('error');
+			currentHP = currentHP - 1;
         } else {
             cell.classList.remove('error');
             
@@ -366,6 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 showMessage('Уровень пройден.', 'success');
             }
         }
+		console.log(currentHP);
     }
     
     function clearUserInput() {
