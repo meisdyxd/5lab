@@ -47,10 +47,18 @@ h1 {
     margin-bottom: 20px;
 }
 
-.hp-full{
-	background-image: url('../images/full_healthpoint.png');
+.hp{
 	width: 50px;
 	height: 30px;
+}
+
+.full{
+	background-image: url('../images/full_healthpoint.png');
+	background-size: cover;
+}
+
+.empty{
+	background-image: url('../images/empty_healthpoint.png');
 	background-size: cover;
 }
 

@@ -157,7 +157,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		for(i = 0; i < currentHP; i++){
 			const hp = document.createElement('img');
-			hp.classList.add('hp-full');
+			hp.classList.add('hp full');
+			hp.dataset.seq = i;
+			healthBar.appendChild(hp);
+		}
+		for(i = 0; i < maxHP-currentHP; i++){
+			const hp = document.createElement('img');
+			hp.classList.add('hp empty');
 			hp.dataset.seq = i;
 			healthBar.appendChild(hp);
 		}
