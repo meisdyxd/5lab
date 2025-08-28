@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function handleKeyDown(e) {
-        if (!selectedCell) return;
+        if (!selectedCell || currentHP == 0) return;
         
         const row = parseInt(selectedCell.dataset.row);
         const col = parseInt(selectedCell.dataset.col);
@@ -147,23 +147,37 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
 	function checkLoose(){
-		if(currentHP == 0)
+		if(currentHP == 0){
 			showMessage('Вы проиграли. Для продолжения вам нужно начать новую игру', 'error');
+            blockCells();
+        }
 		renderHP();
 	}
 	
+    function blockCells(){
+        const allInputs = document.querySelectorAll('input');
+        allInputs.forEach(input => {
+            input.readOnly = true;
+            });
+    }
+
 	function renderHP(){
 		healthBar.innerHTML = '';
+        const text = document.createElement('p');
+        text.innerHTML = 'Ваше здоровье: '
+        healthBar.appendChild(text);
 		
 		for(i = 0; i < currentHP; i++){
 			const hp = document.createElement('img');
-			hp.classList.add('hp full');
+			hp.classList.add('hp');
+            hp.src = 'images/heart-filled-svgrepo-com.svg';
 			hp.dataset.seq = i;
 			healthBar.appendChild(hp);
 		}
 		for(i = 0; i < maxHP-currentHP; i++){
 			const hp = document.createElement('img');
-			hp.classList.add('hp empty');
+			hp.classList.add('hp');
+            hp.src = 'images/heart-svgrepo-com.svg';
 			hp.dataset.seq = i;
 			healthBar.appendChild(hp);
 		}
@@ -373,6 +387,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function provideHint() {
+        if(currentHP == 0) return;
+        currentHP = currentHP - 1;
         const emptyCells = [];
         
         for (let i = 0; i < 9; i++) {
@@ -398,6 +414,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         validateCell(row, col);
         showMessage('Подсказка активирована.', 'info');
+        renderHP();
+        checkLoose();
     }
     
     function validateCell(row, col) {

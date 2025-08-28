@@ -10,6 +10,10 @@ body {
     min-height: 100vh;
 }
 
+#solve, #clean, #hint{
+    width: 125px;
+}
+
 h1 {
     color: #2c3e50;
     margin-bottom: 10px;
@@ -47,21 +51,32 @@ h1 {
     margin-bottom: 20px;
 }
 
+#healthbar{
+    width: 350px;
+    display: flex;
+    border:none;
+    align-items: center;
+}
+
+#healthbar p{
+    margin-right: 25px;
+    border: 0;
+    outline: 0;
+}
+
+input {
+  caret-color: transparent;
+}
+
 .hp{
-	width: 50px;
-	height: 30px;
+    width: 30px;
+    height: 30px;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background-size: cover;
+    margin-right: 5px;
 }
-
-.full{
-	background-image: url('../images/full_healthpoint.png');
-	background-size: cover;
-}
-
-.empty{
-	background-image: url('../images/empty_healthpoint.png');
-	background-size: cover;
-}
-
 .cell {
     width: 40px;
     height: 40px;
